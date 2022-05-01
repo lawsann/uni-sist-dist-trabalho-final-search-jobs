@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     volumes: &sharedvolumes
-      - ./src:/var/www/app
+    #  - ./src:/var/www/app
     depends_on:
       - phpfpm
 
