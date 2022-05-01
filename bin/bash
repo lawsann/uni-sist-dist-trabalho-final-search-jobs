@@ -1,0 +1,8 @@
+#!/bin/bash
+[ $# -gt 1 ]  && echo "Please inform the user name on first parameter or ommit it to run bash as 'sjobs' user. Multiple parameters are not accepted." && exit
+
+if [ $# -eq 0 ]; then
+    docker-compose exec phpfpm /bin/bash
+else
+    docker-compose exec -u "$1" phpfpm /bin/bash
+fi

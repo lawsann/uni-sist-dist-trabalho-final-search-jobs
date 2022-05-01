@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# shellcheck source=../docker-images/mariadb/var.env
+source docker-images/mariadb/var.env
+
+if [ $# -eq 0 ]; then
+  docker-compose exec phpfpm mysql -h db -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" frontapp
+else
+  docker-compose exec phpfpm mysql -h db -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" ${1}
+fi

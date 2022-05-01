@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  
+  httpserver:
+    build: docker-images/nginx/.
+    ports:
+      - "80:80"
+    volumes: &sharedvolumes
+      - ./src:/var/www
+    depends_on:
+      - phpfpm
+
+  phpfpm:
+    build: docker-images/php-fpm/.
+    volumes: *sharedvolumes
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.6
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    env_file: docker-images/mariadb/var.env
+
+volumes:
+  dbdata:
