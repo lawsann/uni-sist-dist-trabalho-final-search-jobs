@@ -1,8 +1,113 @@
 {# templates/professional/create-account.html.twig #}
-{% extends 'base.html.twig' %}
+{% extends 'app-base.html.twig' %}
 
 {% block title %}Criação de Conta{% endblock %}
-{% block body %}
-    <h1>Criação de Conta de Profissional</h1>
-    <p>Crie sua conta e encontre as melhores vagas do mercado:</p>
+{% block content %}
+    <form id="register-form">
+        <div class="card card--material">
+            <div class="card__title card--material__title">Dados Pessoais</div>
+            <div class="card__content card--material__content">
+                <ons-input name="name" modifier="material" placeholder="Nome" type="text" required></ons-input>
+                <ons-input name="email" modifier="material" placeholder="E-mail" type="email" required></ons-input>
+                <input type="hidden" name="password" value="123" />
+                <ons-input name="telephone" modifier="material" placeholder="Telefone" type="tel" required></ons-input>
+            </div>
+        </div>
+        <div class="card card--material">
+            <div class="card__title card--material__title">Tipo de programador</div>
+            <div class="card__content card--material__content">
+                <ons-list>
+                    <ons-list-item tappable>
+                        <label class="left">
+                            <ons-radio name="dev_type" value="backend" input-id="dev_type-1"></ons-radio>
+                        </label>
+                        <label for="dev_type-1" class="center">
+                            Backend
+                        </label>
+                    </ons-list-item>
+                    <ons-list-item tappable>
+                        <label class="left">
+                            <ons-radio name="dev_type" value="frontend" input-id="dev_type-2"></ons-radio>
+                        </label>
+                        <label for="dev_type-2" class="center">
+                            Frontend
+                        </label>
+                    </ons-list-item>
+                    <ons-list-item tappable>
+                        <label class="left">
+                            <ons-radio name="dev_type" value="fullstack" input-id="dev_type-3"></ons-radio>
+                        </label>
+                        <label for="dev_type-3" class="center">
+                            Fullstack
+                        </label>
+                    </ons-list-item>
+                </ons-list>
+            </div>
+        </div>
+  
+        <div class="card card--material">
+            <div class="card__title card--material__title">Conhecimentos</div>
+            <div class="card__content card--material__content">
+                <ons-list>
+                    {% for skill in skills %}
+                        <ons-list-item>
+                            <div class="center">
+                                {{ skill.title }}
+                            </div>
+                            <div class="right">
+                                <ons-switch name="skills[]" value="/api/skills/{{skill.id }}"></ons-switch>
+                            </div>
+                        </ons-list-item>
+                    {% endfor %}
+                </ons-list>
+            </div>
+        </div>
+
+        <div class="buttons-wrapper">
+            <ons-button modifier="large" id="save-button">Registrar</ons-button>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+
+        function getFormValues(form) {
+            let formValues = {};
+
+            form.serializeArray().map(function(field) {
+                let isArray = field.name.endsWith('[]');
+                let fieldName = field.name.replace('[]', '');
+
+                if (isArray) {
+                    if (!formValues[fieldName]) {
+                        formValues[fieldName] = [];
+                    }
+
+                    formValues[fieldName].push(field.value);
+                } else {
+                    formValues[fieldName] = field.value;
+                }
+            });
+
+            return formValues;
+        }
+
+        function submitForm(formValues) {
+            $.ajax({
+                url: '{{ absolute_url("api/professionals") }}',
+                method: 'POST',
+                contentType : 'application/json',
+                data: JSON.stringify(formValues),
+                success: (function(response) {
+                    console.debug(response);
+                }).bind(this),
+            });
+        }
+
+        let form = $('#register-form');
+        let saveButton = $('#save-button');
+
+        saveButton.on('click', function() {
+            submitForm(getFormValues(form));
+        });
+    </script>
 {% endblock %}
