@@ -54,6 +54,26 @@ volumes: *sharedvolumes
 
 **Atenção!** Caso utilize sistema operacional Windows ou Mac, **não** realize esta alteração pois causará sérios problemas de desempenho na máquina durante a execução dos containers.
 
+
+### Instalação das bibliotecas utilizadas
+
+Acesse o terminal do container Docker para instalar as bibliotecas utilizadas pelo sistema, por meio do gerenciador de pacotes Composer.
+
+Para acessar o terminal do container, digite o seguinte no prompt de comandos, a partir da pasta raiz da aplicação:
+
+```
+docker-compose exec phpfpm /bin/bash
+```
+
+Após a execução desta instrução, você deverá estar na linha de comandos do container denominado `phpfpm`. Para instalar as bibliotecas via Composer, execute o seguinte comando:
+
+```
+composer install
+```
+
+Este passo deverá ser suficiente para instalar todas as bilbiotecas utilizadas pelo sistema. Para sair do terminal do container Docker, digite `exit` e aperte a tecla Enter.
+
+
 ### Criação da estrutura do banco de dados
 
 A aplicação utiliza o ORM Doctrine para manipular os dados persistidos no banco de dados. Para tanto, antes de executar a aplicação a primeira vez, faz-se necessário executar o seguinte comando para criar as tabelas no banco de dados:
