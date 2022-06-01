@@ -44,6 +44,11 @@ class Professional
      */
     private $skills;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $dev_type;
+
     public function __construct()
     {
         $this->skills = new ArrayCollection();
@@ -110,6 +115,18 @@ class Professional
     public function removeSkill(Skill $skill): self
     {
         $this->skills->removeElement($skill);
+
+        return $this;
+    }
+
+    public function getDevType(): ?string
+    {
+        return $this->dev_type;
+    }
+
+    public function setDevType(?string $dev_type): self
+    {
+        $this->dev_type = $dev_type;
 
         return $this;
     }

@@ -36,11 +36,6 @@ class Skill
      */
     private $vacancies;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $dev_type;
-
     public function __construct()
     {
         $this->professionals = new ArrayCollection();
@@ -114,18 +109,6 @@ class Skill
         if ($this->vacancies->removeElement($vacancy)) {
             $vacancy->removeDesiredSkill($this);
         }
-
-        return $this;
-    }
-
-    public function getDevType(): ?string
-    {
-        return $this->dev_type;
-    }
-
-    public function setDevType(?string $dev_type): self
-    {
-        $this->dev_type = $dev_type;
 
         return $this;
     }
