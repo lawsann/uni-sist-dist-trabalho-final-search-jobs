@@ -7,64 +7,60 @@
         <div class="card card--material">
             <div class="card__title card--material__title">Dados Pessoais</div>
             <div class="card__content card--material__content">
-                <ons-input name="name" modifier="material" placeholder="Nome" type="text" required></ons-input>
-                <ons-input name="email" modifier="material" placeholder="E-mail" type="email" required></ons-input>
+                <input name="name" modifier="material" placeholder="Nome" type="text" required />
+                <input name="email" modifier="material" placeholder="E-mail" type="email" required />
                 <input type="hidden" name="password" value="123" />
-                <ons-input name="telephone" modifier="material" placeholder="Telefone" type="tel" required></ons-input>
+                <input name="telephone" modifier="material" placeholder="Telefone" type="tel" required />
             </div>
         </div>
         <div class="card card--material">
             <div class="card__title card--material__title">Tipo de programador</div>
             <div class="card__content card--material__content">
-                <ons-list>
-                    <ons-list-item tappable>
+                <ul>
+                    <li>
                         <label class="left">
-                            <ons-radio name="dev_type" value="backend" input-id="dev_type-1"></ons-radio>
+                            <input type="radio" name="dev_type" value="backend" id="radio-dev-type-backend" />
                         </label>
-                        <label for="dev_type-1" class="center">
+                        <label for="radio-dev-type-backend" class="center">
                             Backend
                         </label>
-                    </ons-list-item>
-                    <ons-list-item tappable>
+                    </li>
+                    <li>
                         <label class="left">
-                            <ons-radio name="dev_type" value="frontend" input-id="dev_type-2"></ons-radio>
+                            <input type="radio" name="dev_type" value="frontend" id="radio-dev-type-frontend" />
                         </label>
-                        <label for="dev_type-2" class="center">
+                        <label for="radio-dev-type-frontend" class="center">
                             Frontend
                         </label>
-                    </ons-list-item>
-                    <ons-list-item tappable>
+                    </li>
+                    <li>
                         <label class="left">
-                            <ons-radio name="dev_type" value="fullstack" input-id="dev_type-3"></ons-radio>
+                            <input type="radio" name="dev_type" value="fullstack" id="radio-dev-type-fullstack" />
                         </label>
-                        <label for="dev_type-3" class="center">
+                        <label for="radio-dev-type-fullstack" class="center">
                             Fullstack
                         </label>
-                    </ons-list-item>
-                </ons-list>
+                    </li>
+                </ul>
             </div>
         </div>
   
         <div class="card card--material">
             <div class="card__title card--material__title">Conhecimentos</div>
             <div class="card__content card--material__content">
-                <ons-list>
+                <ul>
                     {% for skill in skills %}
-                        <ons-list-item>
-                            <div class="center">
-                                {{ skill.title }}
-                            </div>
-                            <div class="right">
-                                <ons-switch name="skills[]" value="/api/skills/{{skill.id }}"></ons-switch>
-                            </div>
-                        </ons-list-item>
+                        <li>
+                            <label for="checkbox-skill-{{skill.id}}">{{ skill.title }}</label>
+                            <input id="checkbox-skill-{{skill.id}}" type="checkbox" name="skills[]" value="/api/skills/{{skill.id }}" />
+                        </li>
                     {% endfor %}
-                </ons-list>
+                </ul>
             </div>
         </div>
 
         <div class="buttons-wrapper">
-            <ons-button modifier="large" id="save-button">Registrar</ons-button>
+            <button type="button" modifier="large" id="save-button">Registrar</button>
         </div>
     </form>
 
